@@ -21,7 +21,7 @@ public:
 //------------------------------------------------------------------------------
 private slots:
 	void BottomClick(int key, bool state);
-	bool SetPagesCurrentIndex(ModeEnum index);
+	bool SetMode(ModeEnum index);
 
 	void on_QPBM1_pressed();
 	void on_QPBM1_released();

@@ -23,7 +23,7 @@ ui(new Ui::MW)
 	index_widget.insert(ModeEnum3,&mode3);
 	index_widget.insert(ModeEnum4,&mode4);
 
-	SetPagesCurrentIndex(ModeEnum1);
+	SetMode(ModeEnum1);
 
 	startTimer(1000);
 }
@@ -56,17 +56,18 @@ void MW::BottomClick(int key,bool state)
 	}
 }
 //------------------------------------------------------------------------------
-bool MW::SetPagesCurrentIndex(ModeEnum index)
+bool MW::SetMode(ModeEnum index)
 {
+	qDebug()<<Q_FUNC_INFO;
 	if(index_widget.value(index) == 0) {
-		qDebug()<<"void MW::SetPagesCurrentIndex - NOT FORM!!!"<<index_widget.value(index);
+		qDebug()<<"NO Set!!!"<<index_widget.value(index);
 		return false;
 	}
 	disconnect(st_widget->currentWidget(),SIGNAL(BottomClick(int,bool)),
 			   this,SLOT(BottomClick(int,bool)));
 
-	disconnect(st_widget->currentWidget(),SIGNAL(SetPagesCurrentIndex(ModeEnum)),
-			   this,SLOT(SetPagesCurrentIndex(ModeEnum)));
+	disconnect(st_widget->currentWidget(),SIGNAL(SetMode(ModeEnum)),
+			   this,SLOT(SetMode(ModeEnum)));
 
 	disconnect(st_widget->currentWidget(),SIGNAL(BottomText(QStringList)),
 			   this,SLOT(BottomText(QStringList)));
@@ -75,8 +76,8 @@ bool MW::SetPagesCurrentIndex(ModeEnum index)
 	st_widget->setCurrentWidget(index_widget.value(index));
 
 
-	connect(st_widget->currentWidget(),SIGNAL(SetPagesCurrentIndex(ModeEnum)),
-			this,SLOT(SetPagesCurrentIndex(ModeEnum)));
+	connect(st_widget->currentWidget(),SIGNAL(SetMode(ModeEnum)),
+			this,SLOT(SetMode(ModeEnum)));
 
 	connect(st_widget->currentWidget(),SIGNAL(BottomClick(int,bool)),
 			this,SLOT(BottomClick(int,bool)));
